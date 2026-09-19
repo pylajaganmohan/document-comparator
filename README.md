@@ -71,8 +71,8 @@ The application will open in your browser.
 Example:
 
 ```text
-VisionLink -> NEW VISIONLINK
-FleetView  -> NEW FLEETVIEW
+old value -> NEW VALUE
+Jagan  -> Jagan Mohan
 Old Portal -> NEW PORTAL
 ```
 
@@ -212,19 +212,6 @@ A comprehensive test pair should validate:
 - Extra records
 - Ignored columns
 
-Expected intentional-failure test pattern:
-
-```text
-Source Rows : 12
-Target Rows : 12
-Matched     : 11
-Missing     : 1
-Extra       : 1
-Changed     : 0
-```
-
-The overall result is FAIL because the test deliberately contains one missing and one extra record.
-
 ## Troubleshooting
 
 ### Streamlit command not found
@@ -249,7 +236,7 @@ Install Tesseract OCR on Windows and make sure the Tesseract executable is avail
 
 ### PDF says Poppler is required
 
-Make sure you are running the v24 `app.py` and have installed:
+Make sure you are running the `app.py` and have installed:
 
 ```powershell
 pip install pypdfium2
