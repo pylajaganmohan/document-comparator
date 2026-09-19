@@ -1,0 +1,191 @@
+DOCUMENT COMPARATOR — CORRECT WHOLE-APP TEST
+================================================
+
+FILES
+-----
+Correct_Source.xlsx
+Correct_Target.xlsx
+
+PURPOSE
+-------
+This pair is designed so the intended matching records really do represent
+the same data, including timezone-equivalent datetime values.
+
+COLUMN MAPPING
+--------------
+Emp_ID          -> Employee_ID
+Record_Type     -> Type
+empName         -> Name
+Application     -> Application Name
+Status          -> Status
+Annual Salary   -> Salary
+Join Date Time  -> Joining DateTime
+City            -> Location
+
+Do NOT map:
+Internal Note
+
+MATCH KEY
+---------
+Enable Composite Match Key:
+- Emp_ID
+- Record_Type
+
+COLUMNS TO COMPARE
+------------------
+Allow the app to automatically populate all mapped columns.
+
+GLOBAL RULES
+------------
+Ignore spaces: ON
+Ignore case: ON
+Numeric tolerance: 0.10
+Normalize date/time formats: ON
+
+DEFAULT TIMEZONE
+----------------
+India Standard Time (IST) — Asia/Kolkata
+
+This is important because the Target datetime values intentionally have
+NO timezone suffix. They are written as IST wall-clock times.
+
+VALUE ALIASES
+-------------
+Application:
+VisionLink -> NEW VISIONLINK
+FleetView  -> NEW FLEETVIEW
+Old Portal -> NEW PORTAL
+
+EXPECTED RESULT
+---------------
+Source Rows : 12
+Target Rows : 12
+Matched     : 10
+Missing     : 1
+Extra       : 1
+Changed     : 0
+Result      : FAIL
+
+The FAIL is intentional:
+- Missing: Emp_ID 110 / Record_Type A
+- Extra:   Emp_ID 111 / Record_Type A
+
+There should be ZERO Value Differences.
+
+WHY THE DATETIME VALUES SHOULD MATCH
+-------------------------------------
+The Source values are timezone-aware and mostly UTC.
+
+The Target values have no timezone and are interpreted as IST.
+
+Examples:
+
+Source:
+2026-09-01 14:30:00+00:00
+Target:
+01/09/2026 20:00 IST
+
+These are the same instant.
+
+Source:
+2026-09-02 14:30:00+00:00
+Target:
+02/09/2026 20:00 IST
+
+Same instant.
+
+Source:
+2026-09-03 09:00:00+05:30
+Target:
+03/09/2026 09:00 IST
+
+Same instant.
+
+Source:
+2026-09-04 10:15:00+00:00
+Target:
+04/09/2026 15:45 IST
+
+Same instant.
+
+Source:
+2026-09-05 12:00:00+00:00
+Target:
+05/09/2026 17:30 IST
+
+Same instant.
+
+Source:
+2026-09-06 08:00:00+00:00
+Target:
+06/09/2026 13:30 IST
+
+Same instant.
+
+Source:
+2026-09-07 18:45:00+00:00
+Target:
+08/09/2026 00:15 IST
+
+Same instant (next calendar day in IST).
+
+Source:
+2026-09-08 11:00:00+00:00
+Target:
+08/09/2026 16:30 IST
+
+Same instant.
+
+Source:
+2026-09-09 16:20:00+00:00
+Target:
+09/09/2026 21:50 IST
+
+Same instant.
+
+Source:
+2026-09-10 07:30:00+00:00
+Target:
+10/09/2026 13:00 IST
+
+Same instant.
+
+Source:
+2026-09-11 10:00:00+00:00
+Target:
+11/09/2026 15:30 IST
+
+Same instant.
+
+OTHER FEATURES BEING TESTED
+---------------------------
+1. Different source/target column names
+2. Automatic mapped-column population
+3. Composite match key
+4. Repeating Emp_ID values
+5. Row-order-independent matching
+6. Ignore spaces:
+   " Ravi " -> "Ravi"
+7. Ignore case:
+   "ARUN" -> "arun"
+8. Numeric tolerance:
+   60000.00 -> 60000.05
+9. Date/time format normalization
+10. Timezone normalization
+11. Source -> Target aliases
+12. Missing record
+13. Extra record
+14. Unmapped/ignored column
+15. Excel report generation
+
+IMPORTANT
+---------
+Do not add a value-difference rule for the missing/extra rows.
+The only intentional failure is Missing + Extra.
+
+If the application is working as intended, the result should show:
+
+Matched = 10
+Missing = 1
+Extra   = 1
+Changed = 0
