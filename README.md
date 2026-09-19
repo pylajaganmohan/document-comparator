@@ -1,4 +1,4 @@
-# Document Comparator v24
+# Document Comparator
 
 A Streamlit-based document comparison utility for Excel, CSV, and PDF files.
 
