@@ -1476,7 +1476,7 @@ def excel_comparison_ui(source_file, target_file):
     with st.expander("🔄 Value Matching / Aliases"):
         st.caption(
             "Define intentional Source → Target value changes. "
-            "Example: VisionLink → NEW VISIONLINK."
+            "Example: Jagan → Jagan Mohan."
         )
 
         alias_col = st.selectbox(
@@ -1488,13 +1488,13 @@ def excel_comparison_ui(source_file, target_file):
         alias_source = st.text_input(
             "Old System Value",
             key="ui_alias_source",
-            placeholder="Example: VisionLink",
+            placeholder="Example: Jagan",
         )
 
         alias_target = st.text_input(
             "New System Value",
             key="ui_alias_target",
-            placeholder="Example: NEW VISIONLINK",
+            placeholder="Example: Jagan Mohan",
         )
 
         if st.button("＋ Add Value Rule", key="add_value_alias"):
