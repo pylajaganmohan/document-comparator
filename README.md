@@ -18,7 +18,7 @@ A Streamlit-based document comparison utility for Excel, CSV, and PDF files.
 - Timezone-aware datetime comparison
 - Configurable default timezone for timezone-less datetime values
 - Source → Target value aliases
-  - Example: `VisionLink → NEW VISIONLINK`
+  - Example: `Jagan → Jagan Mohan`
   - Multiple aliases can be configured per column
 - Saved comparison setups
 - Load / update / delete saved setups
@@ -115,11 +115,10 @@ Value aliases are intended for intentional old-system/new-system differences.
 Example:
 
 ```text
-Column: Application
+Column: Employee Name
 
-VisionLink -> NEW VISIONLINK
-FleetView  -> NEW FLEETVIEW
-Old Portal -> NEW PORTAL
+Jagan -> Jagan Mohan
+Ramesh Kumar  -> Ramesh
 ```
 
 These values are treated as equivalent only for the configured column and configured mapping.
